@@ -1,0 +1,14 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1024" height="1024" fill="#28A745"/>
+  <g id="glyph" fill="none" stroke="#FFFFFF" stroke-width="36"
+     stroke-linecap="round" stroke-linejoin="round">
+    <!-- Document outline with folded corner: page goes (300,260)→(644,260)→(764,380)→(764,764)→(300,764) closed -->
+    <path d="M 300 260 L 644 260 L 764 380 L 764 764 L 300 764 Z"/>
+    <!-- Folded corner triangle showing the back side -->
+    <path d="M 644 260 L 644 380 L 764 380"/>
+    <!-- Three text lines -->
+    <line x1="380" y1="500" x2="684" y2="500"/>
+    <line x1="380" y1="580" x2="684" y2="580"/>
+    <line x1="380" y1="660" x2="600" y2="660"/>
+  </g>
+</svg>

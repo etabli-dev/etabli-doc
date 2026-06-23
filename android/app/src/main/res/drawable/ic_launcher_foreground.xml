@@ -3,13 +3,38 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- "~/" mark in pseudo-mono; matches the iOS placeholder icon. -->
-    <group android:translateX="22" android:translateY="76">
-        <path
-            android:pathData="M 0 -30 L 12 -30 L 12 -22 L 0 -22 Z"
-            android:fillColor="#FFFFFF"/>
-        <path
-            android:pathData="M 18 -10 L 42 -50 L 50 -50 L 26 -10 Z"
-            android:fillColor="#FFFFFF"/>
-    </group>
+    <!-- Document sheet with folded corner — matches design/icon-doc.svg
+         (scaled from 1024-canvas to 108dp). -->
+    <path
+        android:pathData="M31.6,27.4 L67.9,27.4 L80.5,40.1 L80.5,80.6 L31.6,80.6 Z"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3.8"
+        android:fillColor="#00000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"/>
+    <path
+        android:pathData="M67.9,27.4 L67.9,40.1 L80.5,40.1"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3.8"
+        android:fillColor="#00000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"/>
+    <path
+        android:pathData="M40,52.7 L72,52.7"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3.8"
+        android:fillColor="#00000000"
+        android:strokeLineCap="round"/>
+    <path
+        android:pathData="M40,61.1 L72,61.1"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3.8"
+        android:fillColor="#00000000"
+        android:strokeLineCap="round"/>
+    <path
+        android:pathData="M40,69.6 L63.3,69.6"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3.8"
+        android:fillColor="#00000000"
+        android:strokeLineCap="round"/>
 </vector>

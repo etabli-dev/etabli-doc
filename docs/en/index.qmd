@@ -1,5 +1,5 @@
 ---
-title: "Etabli Doc"
+title: "Établi Doc"
 sidebar: en
 ---
 
@@ -9,7 +9,7 @@ sidebar: en
 
 > Your Paperless-ngx documents, on the go.
 
-Etabli Doc is a native iOS and Android client for a self-hosted Paperless-ngx instance. Browse, search, and work with tags, correspondents and document types — straight against your own server. No central service, no intermediary, no telemetry.
+Établi Doc is a native iOS and Android client for a self-hosted Paperless-ngx instance. Browse, search, and work with tags, correspondents and document types — straight against your own server. No central service, no intermediary, no telemetry.
 
 ![Doc — login screen: server URL and API token are stored only in the platform secure store.](../_screens/android-login.png){width=320}
 
@@ -30,10 +30,14 @@ No analytics, no third-party SDKs. Sign-in happens on your own self-hosted Paper
 
 ## Installation
 
-| Platform | Source |
-|----------|--------|
-| iOS      | App Store |
-| Android  | Google Play and F-Droid (main repository) |
+Établi Doc is **under active development**. There are no App Store, Google Play or F-Droid releases yet.
+
+| Channel | Status |
+|---------|--------|
+| Android (APK) | **Development build** via [GitHub Releases](https://github.com/etabli-dev/etabli-doc/releases) |
+| App Store (iOS) | planned — not yet available |
+| Google Play | planned — not yet available |
+| F-Droid | planned — not yet available |
 
 Details: see [Getting Started](getting-started.qmd).
 

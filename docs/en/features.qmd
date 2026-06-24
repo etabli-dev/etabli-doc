@@ -3,7 +3,7 @@ title: "Features"
 sidebar: en
 ---
 
-Etabli Doc surfaces the everyday-useful parts of Paperless-ngx on the phone — without trying to be a full web-UI replica.
+Établi Doc surfaces the everyday-useful parts of Paperless-ngx on the phone — without trying to be a full web-UI replica.
 
 ## Modules
 
@@ -33,8 +33,9 @@ Etabli Doc surfaces the everyday-useful parts of Paperless-ngx on the phone — 
 
 ## Where to get it
 
-| Channel | App |
-|---------|-----|
-| App Store (iOS) · Google Play (Android) | Etabli Doc |
-| F-Droid — main repository | Etabli Doc |
+| Channel | Status |
+|---------|--------|
+| Android (APK) | **Development build** via [GitHub Releases](https://github.com/etabli-dev/etabli-doc/releases) |
+| App Store (iOS) · Google Play (Android) | planned — not yet available |
+| F-Droid — main repository | planned — not yet available |
 | Source code | [`etabli-dev/etabli-doc`](https://github.com/etabli-dev/etabli-doc) |

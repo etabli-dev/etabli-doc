@@ -11,7 +11,7 @@ sidebar: en
 
 Établi Doc is a native iOS and Android client for a self-hosted Paperless-ngx instance. Browse, search, and work with tags, correspondents and document types — straight against your own server. No central service, no intermediary, no telemetry.
 
-![Doc — login screen: server URL and API token are stored only in the platform secure store.](../_screens/android-login.png){width=320}
+![Doc — login screen: server URL and API token are stored only in the platform secure store.](../_screens/0.1.0/01-login.png){width=320}
 
 ## Who benefits
 

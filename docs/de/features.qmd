@@ -3,39 +3,27 @@ title: "Funktionen"
 sidebar: de
 ---
 
-Établi Doc spiegelt die für den Alltag wichtigsten Paperless-ngx-Funktionen auf das Telefon — ohne sich als vollständige Web-UI-Replik zu verstehen.
+Établi Doc ist ein schlanker, nativer Client für eine selbst gehostete Paperless-ngx-Instanz. Die App kommuniziert ausschließlich mit dem Server, den Sie angeben — es gibt keinen zentralen Dienst und keinen Dritten dazwischen. Die folgenden Abbildungen sind echte Screenshots des **v0.1.0**-Android-Builds; nichts davon ist nachgestellt.
 
-## Module
+## Nicht verbunden — der Ausgangszustand
 
-| Bereich | Funktion |
-|---------|----------|
-| **Dokumentenliste** | Chronologische Übersicht; Endlos-Scroll, Pull-to-Refresh. |
-| **Volltextsuche** | Abfrage gegen den Paperless-Index, inkl. OCR-Inhalten. |
-| **Filter** | Nach Korrespondent, Dokumenttyp und Tags. |
-| **Detailansicht** | Vorschau der gespeicherten Datei (PDF/Bild), Metadaten, zugeordnete Tags / Korrespondent / Typ. |
-| **Tag-/Typ-Pflege** | Vorhandene Werte einem Dokument zuordnen. |
+Beim ersten Start von Établi Doc ist noch kein Paperless-ngx-Server konfiguriert. Der Startbereich verwendet die terminalartige Breadcrumb-Leiste der Suite und weist deutlich darauf hin, dass kein Server eingerichtet ist. Er fordert dazu auf, zuerst Server und Zugangsdaten in den Einstellungen einzutragen. Es werden keine Daten abgerufen, bevor eine Verbindung besteht.
 
-## Workflows
+![Start — nicht verbunden: noch kein Paperless-ngx-Server konfiguriert.](../_screens/0.1.0/01-login.png){width=320}
 
-| Ziel | Schritte in der App |
-|------|---------------------|
-| Eine alte Rechnung finden | Liste öffnen → Suchfeld → Stichwort → Treffer öffnen → PDF anzeigen. |
-| Dokumente eines Korrespondenten ansehen | Filter → Korrespondent auswählen → Liste filtert auf diesen Sender. |
-| Markierungen anpassen | Detailansicht → Tags-Sektion → Tag setzen oder entfernen. |
+## Einstellungen — Server und Zugangsdaten
 
-## Netzwerkprofil
+In den Einstellungen tragen Sie die URL Ihrer Paperless-ngx-Instanz und die API-Zugangsdaten ein. Die Zugangsdaten liegen ausschließlich im Plattform-Schlüsselspeicher (Android EncryptedSharedPreferences) und werden nur an den von Ihnen konfigurierten Server übermittelt. Nach erfolgreicher Verbindung kommuniziert die App direkt mit Ihrer eigenen Instanz.
 
-| Verbindung | Ziel |
-|------------|------|
-| HTTPS-Anfragen | ausschließlich an die konfigurierte Server-URL. |
-| Auth | API-Token im `Authorization`-Header. |
-| Sonstige Hosts | werden nicht kontaktiert. |
+![Einstellungen — Server-URL und Zugangsdaten.](../_screens/0.1.0/02-settings.png){width=320}
 
-## Bezug
+## Serverabhängige Ansichten
 
-| Kanal | Status |
-|-------|--------|
-| Android (APK) | **Entwicklungs-Build** über [GitHub Releases](https://github.com/etabli-dev/etabli-doc/releases) |
-| App Store (iOS) · Google Play (Android) | geplant — noch nicht verfügbar |
-| F-Droid — Haupt-Repository | geplant — noch nicht verfügbar |
-| Quellcode | [`etabli-dev/etabli-doc`](https://github.com/etabli-dev/etabli-doc) |
+Die Datenansichten — Durchsuchen, Suchen, Anzeigen und Verwalten Ihrer Paperless-ngx-Inhalte — setzen eine **erreichbare Paperless-ngx-Instanz und gültige Zugangsdaten** voraus, die bei diesem Aufnahmelauf nicht vorhanden waren. Diese Ansichten werden hier bewusst **nicht nachgestellt**. Sie stehen zur Verfügung, sobald in den Einstellungen ein Server verbunden ist; eine künftige Aufnahme gegen eine Paperless-ngx-Testinstanz wird diese Anleitung um die echten Datenansichten ergänzen.
+
+## Bezugsquelle
+
+Établi Doc befindet sich in aktiver Entwicklung. Die aktuelle Veröffentlichung ist ein **Entwicklungs-Build nur für Android (signiertes APK)**:
+
+- Android (signiertes APK): [Version v0.1.0](https://github.com/etabli-dev/etabli-doc/releases/tag/v0.1.0)
+- App Store (iOS) · Google Play (Android) · F-Droid: geplant — noch nicht verfügbar

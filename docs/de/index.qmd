@@ -11,7 +11,7 @@ sidebar: de
 
 Établi Doc ist ein nativer iOS- und Android-Client für eine eigene Paperless-ngx-Instanz. Dokumente browsen und durchsuchen, mit Tags, Korrespondenten und Dokumenttypen arbeiten — alles direkt gegen den eigenen Server. Kein zentraler Dienst, kein Vermittler, keine Telemetrie.
 
-![Doc — Anmeldemaske: Server-URL und API-Token werden ausschließlich lokal im sicheren Speicher abgelegt.](../_screens/android-login.png){width=320}
+![Doc — Anmeldemaske: Server-URL und API-Token werden ausschließlich lokal im sicheren Speicher abgelegt.](../_screens/0.1.0/01-login.png){width=320}
 
 ## Wer profitiert davon
 

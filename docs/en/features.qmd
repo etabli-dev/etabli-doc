@@ -3,39 +3,27 @@ title: "Features"
 sidebar: en
 ---
 
-Établi Doc surfaces the everyday-useful parts of Paperless-ngx on the phone — without trying to be a full web-UI replica.
+Établi Doc is a lean, native client for a self-hosted Paperless-ngx instance. It talks only to the server you point it at — there is no central service and no third party in between. The figures below are real screenshots of the **v0.1.0** Android build; nothing here is mocked up.
 
-## Modules
+## Not connected — the starting state
 
-| Area | What it does |
-|------|--------------|
-| **Document list** | Chronological list; infinite scroll, pull-to-refresh. |
-| **Full-text search** | Queries against the Paperless index, including OCR content. |
-| **Filters** | By correspondent, document type and tags. |
-| **Detail view** | Preview of the stored file (PDF/image), metadata, assigned tags / correspondent / type. |
-| **Tag / type editing** | Apply existing values to a document. |
+When you first open Établi Doc, no Paperless-ngx server is configured yet. The home tab uses the suite's terminal-style breadcrumb and clearly states that no server is set, pointing you to enter the server and credentials in Settings first. Nothing is fetched until you connect.
 
-## Workflows
+![Home — not connected: no Paperless-ngx server configured yet.](../_screens/0.1.0/01-login.png){width=320}
 
-| Goal | In the app |
-|------|------------|
-| Find an old invoice | Open list → search field → keyword → open hit → view PDF. |
-| Browse documents from a correspondent | Filters → pick the correspondent → list narrows down. |
-| Adjust labels | Detail view → tags section → set / remove tag. |
+## Settings — server & credentials
 
-## Network profile
+Settings is where you enter your Paperless-ngx instance URL and API credentials. Credentials live only in the platform secure store (Android EncryptedSharedPreferences) and are sent only to the server you configure. Once connected, the app talks directly to your own instance.
 
-| Connection | Target |
-|------------|--------|
-| HTTPS requests | only to the configured server URL. |
-| Auth | API token in the `Authorization` header. |
-| Other hosts | not contacted. |
+![Settings — server URL and credentials.](../_screens/0.1.0/02-settings.png){width=320}
+
+## Backend-dependent screens
+
+The data screens — browsing, searching, viewing and managing your Paperless-ngx content — require a **reachable Paperless-ngx instance and valid credentials**, which this capture run did not have. Those screens are intentionally **not faked** here. They become available once you connect a server in Settings, and a future capture against a test Paperless-ngx instance will extend this walkthrough with the live data views.
 
 ## Where to get it
 
-| Channel | Status |
-|---------|--------|
-| Android (APK) | **Development build** via [GitHub Releases](https://github.com/etabli-dev/etabli-doc/releases) |
-| App Store (iOS) · Google Play (Android) | planned — not yet available |
-| F-Droid — main repository | planned — not yet available |
-| Source code | [`etabli-dev/etabli-doc`](https://github.com/etabli-dev/etabli-doc) |
+Établi Doc is under active development. The current release is an **Android-only development build (signed APK)**:
+
+- Android (signed APK): [v0.1.0 release](https://github.com/etabli-dev/etabli-doc/releases/tag/v0.1.0)
+- App Store (iOS) · Google Play (Android) · F-Droid: planned — not yet available

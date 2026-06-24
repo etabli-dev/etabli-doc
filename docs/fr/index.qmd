@@ -11,7 +11,7 @@ sidebar: fr
 
 Établi Doc est un client natif iOS et Android pour une instance Paperless-ngx auto-hébergée. Parcourir, chercher, travailler avec les étiquettes, correspondants et types de document — directement contre votre propre serveur. Aucun service central, aucun intermédiaire, aucune télémétrie.
 
-![Doc — écran de connexion : l'URL du serveur et le jeton d'API sont stockés uniquement dans le coffre-fort de la plateforme.](../_screens/android-login.png){width=320}
+![Doc — écran de connexion : l'URL du serveur et le jeton d'API sont stockés uniquement dans le coffre-fort de la plateforme.](../_screens/0.1.0/01-login.png){width=320}
 
 ## À qui ça s'adresse
 

@@ -1,0 +1,40 @@
+---
+title: "Features"
+sidebar: en
+---
+
+Etabli Doc surfaces the everyday-useful parts of Paperless-ngx on the phone — without trying to be a full web-UI replica.
+
+## Modules
+
+| Area | What it does |
+|------|--------------|
+| **Document list** | Chronological list; infinite scroll, pull-to-refresh. |
+| **Full-text search** | Queries against the Paperless index, including OCR content. |
+| **Filters** | By correspondent, document type and tags. |
+| **Detail view** | Preview of the stored file (PDF/image), metadata, assigned tags / correspondent / type. |
+| **Tag / type editing** | Apply existing values to a document. |
+
+## Workflows
+
+| Goal | In the app |
+|------|------------|
+| Find an old invoice | Open list → search field → keyword → open hit → view PDF. |
+| Browse documents from a correspondent | Filters → pick the correspondent → list narrows down. |
+| Adjust labels | Detail view → tags section → set / remove tag. |
+
+## Network profile
+
+| Connection | Target |
+|------------|--------|
+| HTTPS requests | only to the configured server URL. |
+| Auth | API token in the `Authorization` header. |
+| Other hosts | not contacted. |
+
+## Where to get it
+
+| Channel | App |
+|---------|-----|
+| App Store (iOS) · Google Play (Android) | Etabli Doc |
+| F-Droid — main repository | Etabli Doc |
+| Source code | [`etabli-dev/etabli-doc`](https://github.com/etabli-dev/etabli-doc) |

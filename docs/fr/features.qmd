@@ -1,0 +1,40 @@
+---
+title: "Fonctionnalités"
+sidebar: fr
+---
+
+Etabli Doc reprend sur le téléphone ce qui sert au quotidien dans Paperless-ngx — sans chercher à reproduire l'interface web complète.
+
+## Modules
+
+| Zone | Fonction |
+|------|----------|
+| **Liste de documents** | Liste chronologique ; défilement infini, pull-to-refresh. |
+| **Recherche plein texte** | Requête contre l'index Paperless, OCR inclus. |
+| **Filtres** | Par correspondant, type de document et étiquettes. |
+| **Vue détail** | Aperçu du fichier stocké (PDF/image), métadonnées, étiquettes / correspondant / type associés. |
+| **Édition étiquettes/types** | Appliquer des valeurs existantes à un document. |
+
+## Flux de travail
+
+| Objectif | Dans l'appli |
+|----------|--------------|
+| Retrouver une vieille facture | Ouvrir la liste → champ de recherche → mot-clé → ouvrir le résultat → afficher le PDF. |
+| Voir les documents d'un correspondant | Filtres → choisir le correspondant → la liste se restreint. |
+| Ajuster les étiquettes | Vue détail → section étiquettes → ajouter / retirer. |
+
+## Profil réseau
+
+| Connexion | Cible |
+|-----------|-------|
+| Requêtes HTTPS | uniquement vers l'URL serveur configurée. |
+| Auth | jeton d'API dans l'en-tête `Authorization`. |
+| Autres hôtes | non contactés. |
+
+## Distribution
+
+| Canal | App |
+|-------|-----|
+| App Store (iOS) · Google Play (Android) | Etabli Doc |
+| F-Droid — dépôt principal | Etabli Doc |
+| Code source | [`etabli-dev/etabli-doc`](https://github.com/etabli-dev/etabli-doc) |

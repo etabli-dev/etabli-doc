@@ -1,0 +1,42 @@
+---
+title: "Etabli Doc"
+sidebar: fr
+---
+
+<img src="../_icons/icon-doc.svg" alt="" width="80" align="right" style="margin:0 0 1rem 1rem;">
+
+<span class="etabli-badge">Client auto-hébergé</span>
+
+> Vos documents Paperless-ngx, en mobilité.
+
+Etabli Doc est un client natif iOS et Android pour une instance Paperless-ngx auto-hébergée. Parcourir, chercher, travailler avec les étiquettes, correspondants et types de document — directement contre votre propre serveur. Aucun service central, aucun intermédiaire, aucune télémétrie.
+
+![Doc — écran de connexion : l'URL du serveur et le jeton d'API sont stockés uniquement dans le coffre-fort de la plateforme.](../_screens/android-login.png){width=320}
+
+## À qui ça s'adresse
+
+À toute personne hébergeant Paperless-ngx qui souhaite accéder à ses documents non seulement au bureau mais aussi en déplacement — par exemple pour montrer un PDF archivé en réunion ou retrouver une facture.
+
+## Plateformes
+
+| Plateforme | Statut |
+|------------|--------|
+| iOS        | ✓      |
+| Android    | ✓      |
+
+## Vie privée
+
+Aucun outil d'analyse, aucun SDK tiers. L'authentification se fait sur votre serveur Paperless-ngx auto-hébergé. Les identifiants (URL + jeton d'API) résident uniquement dans le coffre-fort de la plateforme (iOS Keychain · Android EncryptedSharedPreferences) et ne sont envoyés qu'à l'instance configurée.
+
+## Installation
+
+| Plateforme | Distribution |
+|------------|--------------|
+| iOS        | App Store |
+| Android    | Google Play et F-Droid (dépôt principal) |
+
+Détails : voir [Premiers pas](getting-started.qmd).
+
+## Soutenir
+
+Si l'appli vous est utile : [Liberapay](https://liberapay.com/rabanheller/) · dans l'appli même vous trouverez également un lien Buy-Me-a-Coffee.

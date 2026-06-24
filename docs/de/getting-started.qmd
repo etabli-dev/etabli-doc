@@ -1,0 +1,32 @@
+---
+title: "Erste Schritte"
+sidebar: de
+---
+
+## Voraussetzungen
+
+- Eine eigene, erreichbare Paperless-ngx-Instanz (HTTPS empfohlen).
+- Ein API-Token für deinen Benutzer (siehe unten).
+
+## API-Token in Paperless-ngx erzeugen
+
+1. In Paperless einloggen.
+2. Über das Benutzer-Menü oben rechts → **Mein Profil**.
+3. Im Profil-Reiter den Bereich **API-Token** öffnen und einen neuen Token generieren.
+4. Den Token kopieren — er wird nur einmal angezeigt.
+
+## App einrichten
+
+1. App aus dem Store installieren und öffnen.
+2. Im Einrichtungs-Dialog eintragen:
+   - **Server-URL** (z.B. `https://docs.example.org`)
+   - **API-Token** aus Schritt oben
+3. Die App prüft die Verbindung. Bei Erfolg landet sie direkt in der Dokumenten-Liste.
+
+![Anmeldemaske mit Feldern für Server-URL und API-Token.](../_screens/android-login.png){width=320}
+
+## Hinweise
+
+- URL und Token werden im sicheren Plattform-Speicher abgelegt und nur an die konfigurierte Server-URL gesendet.
+- Self-signed Zertifikate werden nicht automatisch akzeptiert; richte deinen Server mit einem regulär signierten Zertifikat ein (z.B. Let's Encrypt).
+- Die App spricht ausschließlich die offizielle Paperless-ngx-API. Sie ersetzt die Web-Oberfläche bei administrativen Aufgaben nicht.

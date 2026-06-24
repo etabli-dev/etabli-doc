@@ -1,0 +1,42 @@
+---
+title: "Etabli Doc"
+sidebar: de
+---
+
+<img src="../_icons/icon-doc.svg" alt="" width="80" align="right" style="margin:0 0 1rem 1rem;">
+
+<span class="etabli-badge">Self-hosted-Client</span>
+
+> Deine Paperless-ngx-Dokumente, mobil verfügbar.
+
+Etabli Doc ist ein nativer iOS- und Android-Client für eine eigene Paperless-ngx-Instanz. Dokumente browsen und durchsuchen, mit Tags, Korrespondenten und Dokumenttypen arbeiten — alles direkt gegen den eigenen Server. Kein zentraler Dienst, kein Vermittler, keine Telemetrie.
+
+![Doc — Anmeldemaske: Server-URL und API-Token werden ausschließlich lokal im sicheren Speicher abgelegt.](../_screens/android-login.png){width=320}
+
+## Wer profitiert davon
+
+Wer Paperless-ngx selbst hostet und Dokumente nicht nur am Schreibtisch, sondern auch unterwegs einsehen möchte — etwa um in einem Termin schnell ein archiviertes PDF zu zeigen oder eine Rechnung nachzuschlagen.
+
+## Plattformen
+
+| Plattform | Status |
+|-----------|--------|
+| iOS       | ✓      |
+| Android   | ✓      |
+
+## Datenschutz
+
+Keine Analyse-Tools, keine Drittanbieter-SDKs. Anmeldung erfolgt am eigenen self-hosted Paperless-ngx-Server. Zugangsdaten (URL + API-Token) liegen ausschließlich im Plattform-Schlüsselspeicher (iOS Keychain · Android EncryptedSharedPreferences) und gehen ausschließlich an die konfigurierte Instanz.
+
+## Installation
+
+| Plattform | Bezug |
+|-----------|-------|
+| iOS       | App Store |
+| Android   | Google Play und F-Droid (Haupt-Repository) |
+
+Details siehe [Erste Schritte](getting-started.qmd).
+
+## Unterstützen
+
+Wenn dir die App nützt: [Liberapay](https://liberapay.com/rabanheller/) · in der App selbst findest du außerdem einen Buy-Me-a-Coffee-Link.

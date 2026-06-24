@@ -1,0 +1,32 @@
+---
+title: "Premiers pas"
+sidebar: fr
+---
+
+## Prérequis
+
+- Une instance Paperless-ngx auto-hébergée et accessible (HTTPS recommandé).
+- Un jeton d'API pour votre utilisateur (voir ci-dessous).
+
+## Créer un jeton d'API dans Paperless-ngx
+
+1. Se connecter à Paperless.
+2. Depuis le menu utilisateur en haut à droite → **Mon profil**.
+3. Dans l'onglet du profil, ouvrir la section **API Token** et générer un nouveau jeton.
+4. Copier le jeton — il n'est affiché qu'une seule fois.
+
+## Configurer l'appli
+
+1. Installer l'appli depuis le store et l'ouvrir.
+2. Dans l'écran de configuration, saisir :
+   - **URL du serveur** (p. ex. `https://docs.example.org`)
+   - **Jeton d'API** issu de l'étape précédente
+3. L'appli vérifie la connexion. En cas de succès, elle arrive directement sur la liste des documents.
+
+![Écran de configuration avec champs pour l'URL du serveur et le jeton d'API.](../_screens/android-login.png){width=320}
+
+## Remarques
+
+- L'URL et le jeton sont rangés dans le coffre-fort de la plateforme et ne sont envoyés qu'à l'URL serveur configurée.
+- Les certificats auto-signés ne sont pas acceptés automatiquement ; servez votre instance derrière un certificat reconnu (p. ex. Let's Encrypt).
+- L'appli parle uniquement l'API officielle de Paperless-ngx. Elle ne remplace pas l'interface web pour les tâches d'administration.

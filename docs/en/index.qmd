@@ -1,0 +1,42 @@
+---
+title: "Etabli Doc"
+sidebar: en
+---
+
+<img src="../_icons/icon-doc.svg" alt="" width="80" align="right" style="margin:0 0 1rem 1rem;">
+
+<span class="etabli-badge">Self-hosted client</span>
+
+> Your Paperless-ngx documents, on the go.
+
+Etabli Doc is a native iOS and Android client for a self-hosted Paperless-ngx instance. Browse, search, and work with tags, correspondents and document types — straight against your own server. No central service, no intermediary, no telemetry.
+
+![Doc — login screen: server URL and API token are stored only in the platform secure store.](../_screens/android-login.png){width=320}
+
+## Who benefits
+
+Anyone self-hosting Paperless-ngx who wants to access documents not only at their desk but also on the move — e.g. quickly showing an archived PDF in a meeting or looking up an invoice.
+
+## Platforms
+
+| Platform | Status |
+|----------|--------|
+| iOS      | ✓      |
+| Android  | ✓      |
+
+## Privacy
+
+No analytics, no third-party SDKs. Sign-in happens on your own self-hosted Paperless-ngx server. Credentials (URL + API token) live only in the platform secure store (iOS Keychain · Android EncryptedSharedPreferences) and only go to the configured instance.
+
+## Installation
+
+| Platform | Source |
+|----------|--------|
+| iOS      | App Store |
+| Android  | Google Play and F-Droid (main repository) |
+
+Details: see [Getting Started](getting-started.qmd).
+
+## Support
+
+If you find the app useful: [Liberapay](https://liberapay.com/rabanheller/) · inside the app you will also find a Buy-Me-a-Coffee link.

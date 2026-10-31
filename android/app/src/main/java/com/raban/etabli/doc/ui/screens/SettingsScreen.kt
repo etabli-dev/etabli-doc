@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import com.raban.etabli.doc.EtabliDocApplication
 import com.raban.etabli.doc.ui.theme.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.CancellationException
 
 @Composable
 fun SettingsScreen(app: EtabliDocApplication) {
@@ -60,7 +61,7 @@ fun SettingsScreen(app: EtabliDocApplication) {
                         pass = ""
                         status = "Connected — token stored."
                         statusTone = StatusTone.Accent
-                    } catch (e: Throwable) {
+                    } catch (e: CancellationException) { throw e } catch (e: Exception) {
                         status = e.message ?: "Failed"
                         statusTone = StatusTone.Danger
                     } finally { busy = false }
@@ -69,7 +70,9 @@ fun SettingsScreen(app: EtabliDocApplication) {
             if (current != null) {
                 PrimaryButton("Disconnect", icon = Icons.AutoMirrored.Filled.Logout) {
                     scope.launch {
-                        app.client.disconnect()
+                        try { app.client.disconnect() }
+                        catch (e: CancellationException) { throw e }
+                        catch (e: Exception) { status = "Could not disconnect: ${e.message}"; statusTone = StatusTone.Danger; return@launch }
                         status = "Disconnected"
                         statusTone = StatusTone.Info
                     }

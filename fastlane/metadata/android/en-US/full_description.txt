@@ -1,1 +1,3 @@
-Etabli Doc is a client for a self-hosted Paperless-ngx instance. Browse, view and manage your documents. Data flows directly between your device and your own server; there is no central service and no third party in between.
+Établi Doc searches and displays document metadata from your Paperless-ngx server: titles, dates, original filenames and tags. This Android version does not preview, upload, edit or delete documents. Search covers the first result page.
+
+Connect using your HTTPS server URL and login. The returned token is encrypted with Android Keystore. No analytics or author-operated service.

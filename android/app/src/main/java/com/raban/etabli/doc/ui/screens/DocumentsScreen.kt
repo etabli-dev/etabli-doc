@@ -18,6 +18,8 @@ import com.raban.etabli.doc.net.PBDocument
 import com.raban.etabli.doc.net.PBNamed
 import com.raban.etabli.doc.ui.theme.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.CancellationException
 
 @Composable
 fun DocumentsScreen(app: EtabliDocApplication) {
@@ -27,19 +29,28 @@ fun DocumentsScreen(app: EtabliDocApplication) {
     var query by remember { mutableStateOf("") }
     var docs by remember { mutableStateOf<List<PBDocument>?>(null) }
     var tags by remember { mutableStateOf<Map<Int, String>>(emptyMap()) }
+    var tagWarning by remember { mutableStateOf<String?>(null) }
     var error by remember { mutableStateOf<String?>(null) }
     var loading by remember { mutableStateOf(false) }
+    var loadJob by remember { mutableStateOf<Job?>(null) }
+    var generation by remember { mutableLongStateOf(0L) }
+    DisposableEffect(Unit) { onDispose { loadJob?.cancel() } }
 
     fun load() {
-        if (config == null) { docs = null; error = null; return }
-        scope.launch {
-            loading = true; error = null
+        val request = ++generation
+        loadJob?.cancel()
+        if (config == null) { docs = null; error = null; loading = false; return }
+        loadJob = scope.launch {
+            loading = true; error = null; tagWarning = null; tags = emptyMap()
             try {
                 docs = app.client.listDocuments(query = query.ifBlank { null })
-                tags = app.client.listTags().associateBy(PBNamed::id) { it.name }
-            } catch (e: Throwable) {
+                try { tags = app.client.listTags().associateBy(PBNamed::id) { it.name } }
+                catch (e: CancellationException) { throw e }
+                catch (e: Exception) { tagWarning = "Tag names unavailable: ${e.message}" }
+            } catch (e: CancellationException) { throw e }
+            catch (e: Exception) {
                 error = e.message; docs = null
-            } finally { loading = false }
+            } finally { if (generation == request) loading = false }
         }
     }
     LaunchedEffect(config) { load() }
@@ -55,6 +66,7 @@ fun DocumentsScreen(app: EtabliDocApplication) {
             PrimaryButton("Search", icon = Icons.Default.Refresh, onClick = ::load)
         }
 
+        tagWarning?.let { StatusLabel(it, tone = StatusTone.Warn) }
         when {
             config == null   -> Card(title = "not connected") {
                 MonoLabel("set the server + credentials in Settings first.", color = t.color.faint)
@@ -63,7 +75,7 @@ fun DocumentsScreen(app: EtabliDocApplication) {
             error != null    -> ErrorState("Couldn't load", detail = error, onRetry = ::load)
             docs == null     -> Spacer(Modifier.size(0.dp))
             docs!!.isEmpty() -> EmptyState("No documents match.")
-            else             -> LazyColumn(verticalArrangement = Arrangement.spacedBy(t.space.sm)) {
+            else             -> LazyColumn(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(t.space.sm)) {
                 items(docs!!, key = { it.id }) { d -> DocRow(d, tags) }
                 item { Spacer(Modifier.height(t.space.xl)) }
             }

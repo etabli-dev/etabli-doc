@@ -3,44 +3,10 @@ title: "Établi Doc"
 sidebar: fr
 ---
 
-<img src="../_icons/icon-doc.svg" alt="" width="80" align="right" style="margin:0 0 1rem 1rem;">
+Rechercher les métadonnées des documents Paperless-ngx. iOS permet aussi de prévisualiser les originaux. L’ajout, la modification et la suppression ne sont pas disponibles ; seule la première page de résultats est affichée.
 
-<span class="etabli-badge">Client auto-hébergé</span>
+Cette page décrit les sources d’octobre 2026. Ces modifications ne sont pas publiées et ne figurent pas dans les anciennes versions de développement. Les contrôles locaux ne remplacent pas la validation sur appareil, serveur réel ou boutique.
 
-> Vos documents Paperless-ngx, en mobilité.
+[Fonctions actuelles, prérequis et commandes (en anglais)](../current-status.qmd)
 
-Établi Doc est un client natif iOS et Android pour une instance Paperless-ngx auto-hébergée. Parcourir, chercher, travailler avec les étiquettes, correspondants et types de document — directement contre votre propre serveur. Aucun service central, aucun intermédiaire, aucune télémétrie.
-
-![Doc — écran de connexion : l'URL du serveur et le jeton d'API sont stockés uniquement dans le coffre-fort de la plateforme.](../_screens/0.1.0/01-login.png){width=320}
-
-## À qui ça s'adresse
-
-À toute personne hébergeant Paperless-ngx qui souhaite accéder à ses documents non seulement au bureau mais aussi en déplacement — par exemple pour montrer un PDF archivé en réunion ou retrouver une facture.
-
-## Plateformes
-
-| Plateforme | Statut |
-|------------|--------|
-| iOS        | ✓      |
-| Android    | ✓      |
-
-## Vie privée
-
-Aucun outil d'analyse, aucun SDK tiers. L'authentification se fait sur votre serveur Paperless-ngx auto-hébergé. Les identifiants (URL + jeton d'API) résident uniquement dans le coffre-fort de la plateforme (iOS Keychain · Android EncryptedSharedPreferences) et ne sont envoyés qu'à l'instance configurée.
-
-## Installation
-
-Établi Doc est **en cours de développement actif**. Il n'existe pas encore de version App Store, Google Play ou F-Droid.
-
-| Canal | Statut |
-|-------|--------|
-| Android (APK) | **Version de développement** via [GitHub Releases](https://github.com/etabli-dev/etabli-doc/releases) |
-| App Store (iOS) | prévu — pas encore disponible |
-| Google Play | prévu — pas encore disponible |
-| F-Droid | prévu — pas encore disponible |
-
-Détails : voir [Premiers pas](getting-started.qmd).
-
-## Soutenir
-
-Si l'appli vous est utile : [Liberapay](https://liberapay.com/rabanheller/).
+[README](https://github.com/etabli-dev/etabli-doc/blob/main/README.md) · [GitHub](https://github.com/etabli-dev/etabli-doc)

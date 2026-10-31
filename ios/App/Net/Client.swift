@@ -8,12 +8,12 @@ import Observation
 //
 // Auth: POST credentials to /api/token/ → token; subsequent calls send
 // `Authorization: Token <token>`. The Paperless REST is fully documented
-// at <base>/api/schema/view/ — we verify endpoint paths against that on
-// every connect (a 404 there fails the connection cleanly).
+// at <base>/api/schema/view/. Connection validation uses the token endpoint.
 
 public struct PBConfig: Equatable, Sendable {
     public var baseURL: URL
     public var hasToken: Bool
+    public var revision = UUID()
 }
 
 public enum PBError: Error, LocalizedError {
@@ -47,7 +47,7 @@ public struct PBDocument: Decodable, Identifiable, Sendable {
     public let title: String?
     public let created: String?
     public let added: String?
-    public let archive_serial_number: String?
+    public let archive_serial_number: Int?
     public let correspondent: Int?
     public let document_type: Int?
     public let tags: [Int]?
@@ -66,14 +66,23 @@ public struct PBNamed: Decodable, Identifiable, Sendable {
 public final class PBClient {
 
     public private(set) var config: PBConfig?
-    private let session: URLSession
+    private let session: ClientHTTP
+    private let defaults: UserDefaults
+    private var connectionIntent = UUID()
     private let decoder = JSONDecoder()
     private let keychainService = "paperbox.paperless"
     private let urlKey = "paperbox.paperless.baseurl"
 
-    public init(session: URLSession = .shared) {
-        self.session = session
-        if let stored = UserDefaults.standard.url(forKey: urlKey),
+    public init(session: URLSession = .shared, defaults: UserDefaults = .standard) {
+        self.session = ClientHTTP(configuration: session.configuration)
+        self.defaults = defaults
+        if let saved = (try? Keychain.get(service: keychainService, account: "connection.v2")) ?? nil {
+            guard let value = try? JSONDecoder().decode(StoredConnection.self, from: Data(saved.utf8)),
+                  (try? secureServer(value.server)) != nil, !value.token.isEmpty else { return }
+            self.config = PBConfig(baseURL: value.server, hasToken: true)
+            return
+        }
+        if let stored = defaults.url(forKey: urlKey), (try? secureServer(stored)) != nil,
            let token = (try? Keychain.get(service: keychainService, account: "token")) ?? nil,
            !token.isEmpty {
             self.config = PBConfig(baseURL: stored, hasToken: true)
@@ -81,14 +90,19 @@ public final class PBClient {
     }
 
     public func disconnect() throws {
+        connectionIntent = UUID()
         try Keychain.delete(service: keychainService, account: "token")
-        UserDefaults.standard.removeObject(forKey: urlKey)
+        try Keychain.delete(service: keychainService, account: "connection.v2")
+        defaults.removeObject(forKey: urlKey)
         config = nil
     }
 
     /// POST username/password to /api/token/ → token. Stores both URL and
     /// token. On any HTTP failure we DON'T persist anything.
     public func connect(baseURL: URL, username: String, password: String) async throws {
+        let intent = UUID(); connectionIntent = intent
+        let baseURL = try secureServer(baseURL)
+        guard !username.isEmpty && !password.isEmpty else { throw PBError.invalidCredentials }
         let url = baseURL.appendingPathComponent("api/token/")
         var req = URLRequest(url: url)
         req.httpMethod = "POST"
@@ -107,12 +121,20 @@ public final class PBClient {
         }
         struct TokenResponse: Decodable { let token: String }
         let resp = try decoder.decode(TokenResponse.self, from: data)
-        try Keychain.set(resp.token, service: keychainService, account: "token")
-        UserDefaults.standard.set(baseURL, forKey: urlKey)
+        guard !resp.token.isEmpty else { throw PBError.invalidCredentials }
+        guard connectionIntent == intent else { throw CancellationError() }
+        let saved = try JSONEncoder().encode(StoredConnection(server: baseURL, token: resp.token))
+        try Keychain.set(String(decoding: saved, as: UTF8.self), service: keychainService, account: "connection.v2")
+        defaults.set(baseURL, forKey: urlKey)
         config = PBConfig(baseURL: baseURL, hasToken: true)
     }
 
     private func token() throws -> String {
+        if let saved = try Keychain.get(service: keychainService, account: "connection.v2") {
+            let value = try JSONDecoder().decode(StoredConnection.self, from: Data(saved.utf8))
+            guard value.server == config?.baseURL else { throw PBError.notConfigured }
+            return value.token
+        }
         guard let t = try Keychain.get(service: keychainService, account: "token"), !t.isEmpty
         else { throw PBError.notConfigured }
         return t
@@ -169,6 +191,7 @@ public final class PBClient {
         var req = URLRequest(url: url)
         req.setValue("Token \(try token())", forHTTPHeaderField: "Authorization")
         let (tempURL, response) = try await session.download(for: req)
+        defer { try? FileManager.default.removeItem(at: tempURL) }
         guard let http = response as? HTTPURLResponse,
               (200..<300).contains(http.statusCode) else {
             try? FileManager.default.removeItem(at: tempURL)
@@ -188,7 +211,7 @@ public final class PBClient {
             let after = cd[range.upperBound...]
                 .trimmingCharacters(in: CharacterSet(charactersIn: "\";"))
             let ext = (after as NSString).pathExtension
-            if !ext.isEmpty { return ext }
+            if !ext.isEmpty && ext.count <= 10 && ext.unicodeScalars.allSatisfy({ CharacterSet.alphanumerics.contains($0) }) { return ext.lowercased() }
         }
         if let ct = http.value(forHTTPHeaderField: "Content-Type")?.lowercased() {
             if ct.contains("pdf") { return "pdf" }
@@ -217,7 +240,8 @@ public final class PBClient {
             }
             do { return try decoder.decode(T.self, from: data) }
             catch { throw PBError.decoding(error.localizedDescription) }
-        } catch let e as PBError { throw e }
+        } catch is CancellationError { throw CancellationError() }
+        catch let e as PBError { throw e }
         catch { throw PBError.transport(error.localizedDescription) }
     }
 }

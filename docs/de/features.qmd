@@ -3,27 +3,14 @@ title: "Funktionen"
 sidebar: de
 ---
 
-Établi Doc ist ein schlanker, nativer Client für eine selbst gehostete Paperless-ngx-Instanz. Die App kommuniziert ausschließlich mit dem Server, den Sie angeben — es gibt keinen zentralen Dienst und keinen Dritten dazwischen. Die folgenden Abbildungen sind echte Screenshots des **v0.1.0**-Android-Builds; nichts davon ist nachgestellt.
+Dokumentmetadaten in Paperless-ngx suchen. iOS kann zusätzlich Originale anzeigen. Upload, Bearbeitung und Löschen sind nicht verfügbar; die Ergebnisliste zeigt die erste Seite.
 
-## Nicht verbunden — der Ausgangszustand
+Diese Seite beschreibt den Quellstand vom Oktober 2026. Die Änderungen sind unveröffentlicht und nicht Teil älterer Entwicklungsreleases. Lokale Prüfungen ersetzen keine Geräte-, Live-Server- oder Store-Abnahme.
 
-Beim ersten Start von Établi Doc ist noch kein Paperless-ngx-Server konfiguriert. Der Startbereich verwendet die terminalartige Breadcrumb-Leiste der Suite und weist deutlich darauf hin, dass kein Server eingerichtet ist. Er fordert dazu auf, zuerst Server und Zugangsdaten in den Einstellungen einzutragen. Es werden keine Daten abgerufen, bevor eine Verbindung besteht.
+[Current status / Aktueller Stand / État actuel](../current-status.qmd)
+
+Historische Bildschirmfotos aus v0.1.0; sie belegen keine Prüfung des aktuellen Quellstands.
 
 ![Start — nicht verbunden: noch kein Paperless-ngx-Server konfiguriert.](../_screens/0.1.0/01-login.png){width=320}
 
-## Einstellungen — Server und Zugangsdaten
-
-In den Einstellungen tragen Sie die URL Ihrer Paperless-ngx-Instanz und die API-Zugangsdaten ein. Die Zugangsdaten liegen ausschließlich im Plattform-Schlüsselspeicher (Android EncryptedSharedPreferences) und werden nur an den von Ihnen konfigurierten Server übermittelt. Nach erfolgreicher Verbindung kommuniziert die App direkt mit Ihrer eigenen Instanz.
-
 ![Einstellungen — Server-URL und Zugangsdaten.](../_screens/0.1.0/02-settings.png){width=320}
-
-## Serverabhängige Ansichten
-
-Die Datenansichten — Durchsuchen, Suchen, Anzeigen und Verwalten Ihrer Paperless-ngx-Inhalte — setzen eine **erreichbare Paperless-ngx-Instanz und gültige Zugangsdaten** voraus, die bei diesem Aufnahmelauf nicht vorhanden waren. Diese Ansichten werden hier bewusst **nicht nachgestellt**. Sie stehen zur Verfügung, sobald in den Einstellungen ein Server verbunden ist; eine künftige Aufnahme gegen eine Paperless-ngx-Testinstanz wird diese Anleitung um die echten Datenansichten ergänzen.
-
-## Bezugsquelle
-
-Établi Doc befindet sich in aktiver Entwicklung. Die aktuelle Veröffentlichung ist ein **Entwicklungs-Build nur für Android (signiertes APK)**:
-
-- Android (signiertes APK): [Version v0.1.0](https://github.com/etabli-dev/etabli-doc/releases/tag/v0.1.0)
-- App Store (iOS) · Google Play (Android) · F-Droid: geplant — noch nicht verfügbar

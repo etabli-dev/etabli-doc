@@ -3,27 +3,14 @@ title: "Fonctionnalités"
 sidebar: fr
 ---
 
-Établi Doc est un client natif et léger pour une instance Paperless-ngx auto-hébergée. Il ne communique qu'avec le serveur que vous lui indiquez — aucun service central, aucun tiers entre les deux. Les illustrations ci-dessous sont de vraies captures d'écran de la version **v0.1.0** sur Android ; rien ici n'est simulé.
+Rechercher les métadonnées des documents Paperless-ngx. iOS permet aussi de prévisualiser les originaux. L’ajout, la modification et la suppression ne sont pas disponibles ; seule la première page de résultats est affichée.
 
-## Non connecté — l'état de départ
+Cette page décrit les sources d’octobre 2026. Ces modifications ne sont pas publiées et ne figurent pas dans les anciennes versions de développement. Les contrôles locaux ne remplacent pas la validation sur appareil, serveur réel ou boutique.
 
-À la première ouverture d'Établi Doc, aucun serveur Paperless-ngx n'est encore configuré. L'onglet d'accueil utilise le fil d'Ariane en style terminal de la suite et indique clairement qu'aucun serveur n'est défini, vous invitant à saisir d'abord le serveur et les identifiants dans les Réglages. Rien n'est récupéré tant que vous n'êtes pas connecté.
+[Current status / Aktueller Stand / État actuel](../current-status.qmd)
+
+Captures historiques de v0.1.0 ; elles ne constituent pas une validation de la version actuelle.
 
 ![Accueil — non connecté : aucun serveur Paperless-ngx configuré pour l'instant.](../_screens/0.1.0/01-login.png){width=320}
 
-## Réglages — serveur et identifiants
-
-Les Réglages sont l'endroit où vous saisissez l'URL de votre instance Paperless-ngx et vos identifiants d'API. Les identifiants ne résident que dans le coffre-fort de la plateforme (Android EncryptedSharedPreferences) et ne sont envoyés qu'au serveur que vous configurez. Une fois connectée, l'application communique directement avec votre propre instance.
-
 ![Réglages — URL du serveur et identifiants.](../_screens/0.1.0/02-settings.png){width=320}
-
-## Écrans dépendant du serveur
-
-Les écrans de données — parcourir, chercher, consulter et gérer votre contenu Paperless-ngx — nécessitent une **instance Paperless-ngx accessible et des identifiants valides**, ce dont cette session de capture ne disposait pas. Ces écrans ne sont volontairement **pas simulés** ici. Ils deviennent disponibles dès que vous connectez un serveur dans les Réglages ; une future capture face à une instance Paperless-ngx de test enrichira ce guide avec les vues de données réelles.
-
-## Où l'obtenir
-
-Établi Doc est en cours de développement actif. La version actuelle est une **version de développement Android uniquement (APK signé)** :
-
-- Android (APK signé) : [version v0.1.0](https://github.com/etabli-dev/etabli-doc/releases/tag/v0.1.0)
-- App Store (iOS) · Google Play (Android) · F-Droid : prévu — pas encore disponible

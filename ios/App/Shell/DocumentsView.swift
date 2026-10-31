@@ -12,6 +12,7 @@ struct DocumentsView: View {
     @State private var correspondents: [PBNamed] = []
     @State private var docTypes: [PBNamed] = []
     @State private var loading = false
+    @State private var loadRequest = UUID()
     @State private var error: String?
     @State private var query: String = ""
     @State private var selectedTagID: Int?
@@ -19,6 +20,7 @@ struct DocumentsView: View {
     @State private var selectedDocTypeID: Int?
     @State private var previewURL: URL?
     @State private var downloadingID: Int?
+    @State private var metadataWarning: String?
     @State private var searchTask: Task<Void, Never>?
 
     var body: some View {
@@ -27,8 +29,12 @@ struct DocumentsView: View {
             content
         }
         .toolbar(.hidden, for: .navigationBar)
-        .task { await initialLoad() }
+        .task(id: client.config) { await initialLoad() }
         .quickLookPreview($previewURL)
+        .onDisappear { searchTask?.cancel() }
+        .onChange(of: previewURL) { previous, current in
+            if let previous, previous != current { try? FileManager.default.removeItem(at: previous) }
+        }
         .onChange(of: query) { _, _ in scheduleSearch() }
         .onChange(of: selectedTagID) { _, _ in scheduleSearch() }
         .onChange(of: selectedCorrespondentID) { _, _ in scheduleSearch() }
@@ -49,6 +55,8 @@ struct DocumentsView: View {
                         .font(Theme.Font.display).foregroundStyle(Theme.Color.ink)
                     searchBar
                     filterChips
+                    if let metadataWarning { StatusLabel(metadataWarning, tone: .warn) }
+                    if let error, !documents.isEmpty { StatusLabel(error, tone: .danger) }
                     body_
                 }.padding(Theme.Space.lg)
             }
@@ -195,29 +203,40 @@ struct DocumentsView: View {
     // MARK: - Actions
 
     private func initialLoad() async {
-        guard client.config != nil else { return }
-        // Master data in parallel.
-        async let t = (try? await client.listTags()) ?? []
-        async let c = (try? await client.listCorrespondents()) ?? []
-        async let dt = (try? await client.listDocumentTypes()) ?? []
-        tags = await t; correspondents = await c; docTypes = await dt
+        let account = client.config
+        tags = []; correspondents = []; docTypes = []; metadataWarning = nil
+        selectedTagID = nil; selectedCorrespondentID = nil; selectedDocTypeID = nil
+        guard account != nil else { documents = []; return }
+        do {
+            async let t = client.listTags()
+            async let c = client.listCorrespondents()
+            async let dt = client.listDocumentTypes()
+            let labels = try await (t, c, dt)
+            try Task.checkCancellation()
+            guard client.config == account else { return }
+            tags = labels.0; correspondents = labels.1; docTypes = labels.2
+        } catch is CancellationError { return }
+        catch { metadataWarning = "Filter names unavailable: \(error.localizedDescription)" }
+        guard !Task.isCancelled && client.config == account else { return }
         await load()
     }
 
     private func load() async {
-        guard client.config != nil else { return }
-        loading = true; error = nil
+        let request = UUID(); loadRequest = request
+        let account = client.config
+        guard account != nil else { documents = []; loading = false; return }
+        loading = true; error = nil; documents = []
+        defer { if loadRequest == request { loading = false } }
         do {
-            documents = try await client.listDocuments(
-                query: query.isEmpty ? nil : query,
-                tagID: selectedTagID,
-                correspondentID: selectedCorrespondentID,
-                docTypeID: selectedDocTypeID
-            )
-        } catch {
+            let loaded = try await client.listDocuments(query: query.isEmpty ? nil : query, tagID: selectedTagID, correspondentID: selectedCorrespondentID, docTypeID: selectedDocTypeID)
+            try Task.checkCancellation()
+            guard loadRequest == request && client.config == account else { return }
+            documents = loaded
+        } catch is CancellationError { }
+        catch {
+            guard loadRequest == request && client.config == account else { return }
             self.error = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
         }
-        loading = false
     }
 
     private func scheduleSearch() {

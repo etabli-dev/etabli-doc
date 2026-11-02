@@ -20,4 +20,6 @@ These commands build from this source tree. Debug APKs are development artifacts
 
 ## Use and verification
 
-Read the [repository README](https://github.com/etabli-dev/etabli-doc/blob/main/README.md) for the exact application workflow, privacy/storage behavior and platform differences. The [October refinement record](https://github.com/etabli-dev/etabli-doc/blob/main/docs/refinement-2026-10.md) records findings, changes, observed checks, deferred work and the next release action. See the workflow runs for the exact source commit; local verification does not establish a remote CI result.
+Read the [repository README](https://github.com/etabli-dev/etabli-doc/blob/main/README.md) for the exact application workflow, privacy/storage behavior and platform differences. The [October refinement record](https://github.com/etabli-dev/etabli-doc/blob/main/docs/refinement-2026-10.md) records findings, changes, observed checks, deferred work and the next release action.
+
+Observed remote verification on 2026-10-31: [commit `781979e3080d`](https://github.com/etabli-dev/etabli-doc/commit/781979e3080dcaeba18502cd8d46c11d93b75e37) passed [Android tests, lint, debug APK and unsigned release AAB packaging, plus the full unsigned iOS simulator build](https://github.com/etabli-dev/etabli-doc/actions/runs/41200521347). Its [documentation build and deployment](https://github.com/etabli-dev/etabli-doc/actions/runs/41200521355) also passed. Device journeys, live-service acceptance where applicable, release signing and store submission remain separate from these results.

@@ -4,7 +4,7 @@ title: "Current implementation and first use"
 
 Search Paperless-ngx document metadata. iOS additionally previews originals. Upload, editing and deletion are unavailable; results show the first page.
 
-This page describes the October 2026 source revision. These source changes are not part of older development release downloads. Local checks are distinct from device, live-service and store acceptance.
+This page describes the October–November 2026 refinements. These source changes are not part of older development release downloads. Local checks are distinct from device, live-service and store acceptance.
 
 ## Build from a clean checkout
 
@@ -23,3 +23,5 @@ These commands build from this source tree. Debug APKs are development artifacts
 Read the [repository README](https://github.com/etabli-dev/etabli-doc/blob/main/README.md) for the exact application workflow, privacy/storage behavior and platform differences. The [October refinement record](https://github.com/etabli-dev/etabli-doc/blob/main/docs/refinement-2026-10.md) records findings, changes, observed checks, deferred work and the next release action.
 
 Observed remote verification on 2026-10-31: [commit `781979e3080d`](https://github.com/etabli-dev/etabli-doc/commit/781979e3080dcaeba18502cd8d46c11d93b75e37) passed [Android tests, lint, debug APK and unsigned release AAB packaging, plus the full unsigned iOS simulator build](https://github.com/etabli-dev/etabli-doc/actions/runs/41200521347). Its [documentation build and deployment](https://github.com/etabli-dev/etabli-doc/actions/runs/41200521355) also passed. Device journeys, live-service acceptance where applicable, release signing and store submission remain separate from these results.
+
+The November 2 API 35/4 KiB emulator pass verified unconfigured navigation, credential/HTTPS validation, a visible local connection refusal and relaunch without retaining failed credentials. Successful Paperless document workflows still require a disposable live test account.

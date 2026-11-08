@@ -194,8 +194,14 @@ struct DocumentsView: View {
         if let cid = d.correspondent, let name = correspondents.first(where: { $0.id == cid })?.name {
             parts.append("from \(name)")
         }
-        if let tags = d.tags, !tags.isEmpty {
-            parts.append("\(tags.count) tag\(tags.count == 1 ? "" : "s")")
+        if let filename = d.original_file_name, !filename.isEmpty {
+            parts.append(filename)
+        }
+        if let ids = d.tags, !ids.isEmpty {
+            let names = ids.map { id in
+                tags.first(where: { $0.id == id })?.name ?? "#\(id)"
+            }
+            parts.append(names.joined(separator: ", "))
         }
         return parts.joined(separator: " · ")
     }

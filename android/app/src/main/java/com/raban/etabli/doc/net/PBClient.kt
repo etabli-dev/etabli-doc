@@ -32,6 +32,7 @@ data class PBConfig(val baseURL: String, val username: String, val hasToken: Boo
 
 sealed class PBError(message: String) : RuntimeException(message) {
     object NotConfigured : PBError("Set the server, username and password in Settings.")
+    object InvalidCredentials : PBError("Username or password rejected. Check your credentials and try again.")
     class Http(val status: Int, val body: String?) : PBError("Server returned HTTP $status.")
     class Decoding(msg: String) : PBError("Couldn't decode response: $msg.")
     class Transport(msg: String) : PBError("Network error: $msg.")
@@ -87,7 +88,12 @@ class PBClient internal constructor(
             .post(body)
             .header("Accept", "application/json")
             .build()
-        val token = fetch(req) { it.getString("token").also { value -> require(value.isNotBlank()) { "Server returned an empty token" } } }
+        val token = try {
+            fetch(req) { it.getString("token").also { value -> require(value.isNotBlank()) { "Server returned an empty token" } } }
+        } catch (e: PBError.Http) {
+            if (e.status == 400 || e.status == 401) throw PBError.InvalidCredentials
+            throw e
+        }
         store.edit { p ->
             if (configurationGeneration.get() != generation) throw CancellationException("Account changed")
             p[KEY_URL] = base
@@ -102,9 +108,16 @@ class PBClient internal constructor(
         store.edit { it.clear() }
     }
 
-    suspend fun listDocuments(page: Int = 1, query: String? = null): List<PBDocument> {
+    suspend fun listDocuments(
+        page: Int = 1, query: String? = null,
+        tagID: Int? = null, correspondentID: Int? = null, documentTypeID: Int? = null,
+    ): List<PBDocument> {
         require(page > 0) { "Page must be positive" }
-        val q = StringBuilder("/api/documents/?ordering=-created&page=$page")
+        require(listOfNotNull(tagID, correspondentID, documentTypeID).all { it > 0 }) { "Filter IDs must be positive" }
+        val q = StringBuilder("/api/documents/?ordering=-added&page_size=50&page=$page")
+        tagID?.let { q.append("&tags__id__all=$it") }
+        correspondentID?.let { q.append("&correspondent__id=$it") }
+        documentTypeID?.let { q.append("&document_type__id=$it") }
         if (!query.isNullOrBlank()) q.append("&query=").append(java.net.URLEncoder.encode(query, "UTF-8"))
         return get(q.toString()) { root ->
             val arr = root.getJSONArray("results")

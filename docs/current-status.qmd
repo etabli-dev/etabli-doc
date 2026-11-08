@@ -2,7 +2,7 @@
 title: "Current implementation and first use"
 ---
 
-Search Paperless-ngx document metadata. iOS additionally previews originals. Upload, editing and deletion are unavailable; results show the first page.
+Search Paperless-ngx document metadata and combine tag, correspondent and document-type filters. Both platforms request the first 50 documents, newest added first. iOS additionally previews originals. Upload, editing and deletion are unavailable; results show the first page.
 
 This page describes the October–November 2026 refinements. These source changes are not part of older development release downloads. Local checks are distinct from device, live-service and store acceptance.
 

@@ -4,7 +4,7 @@
 
 `iOS` `Android` · Apache-2.0 · Part of the [Établi Suite](https://github.com/etabli-dev)
 
-Android searches document metadata and displays titles, dates, original filenames and tag names. iOS additionally filters by tags/correspondent/type and opens downloaded originals in Quick Look. Upload, deletion and document editing are not implemented. The screens show the first result page (50 documents on iOS; the server default on Android); use search to narrow it. UI pagination remains deferred.
+Android and iOS search document metadata and combine tags, correspondent and document-type filters. Both display titles, dates, original filenames and tag names; iOS additionally opens downloaded originals in Quick Look. Upload, deletion and document editing are not implemented. The screens show the first result page (50 documents, newest added first, on both platforms); use search to narrow it. UI pagination remains deferred.
 
 ## Availability
 

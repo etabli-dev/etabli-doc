@@ -7,6 +7,8 @@ Android release steps are detailed in
 
 The [2026-11-08 Apple refinement](apple-audit-2026-11-08.md) records the implemented iOS metadata/detail parity and current unsigned build verification. Live-service and signed-distribution gates remain open.
 
+The [2026-11-09 Android refinement](android-audit-2026-11-09.md) implements A1 (combined filters), A3/I3 (50 documents ordered by date added) and A5 (specific rejected-login errors). The original planning rows below retain their acceptance criteria; A2, A4 and A6 remain open.
+
 ## 1. Platform role
 
 Établi Doc is a **mobile-only** app for Android and iOS, on phones and tablets (the iOS

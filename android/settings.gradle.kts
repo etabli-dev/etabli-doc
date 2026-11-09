@@ -22,5 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "EtabliFocus"
+rootProject.name = "EtabliDoc"
 include(":app")

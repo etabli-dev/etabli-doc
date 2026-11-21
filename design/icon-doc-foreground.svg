@@ -1,10 +1,10 @@
-<svg width="432" height="432" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-  <g fill="none" stroke="#FFFFFF" stroke-width="36"
-     stroke-linecap="round" stroke-linejoin="round">
-    <path d="M 300 260 L 644 260 L 764 380 L 764 764 L 300 764 Z"/>
-    <path d="M 644 260 L 644 380 L 764 380"/>
-    <line x1="380" y1="500" x2="684" y2="500"/>
-    <line x1="380" y1="580" x2="684" y2="580"/>
-    <line x1="380" y1="660" x2="600" y2="660"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="432" height="432" viewBox="0 0 1024 1024">
+  <!-- Établi Doc: Android adaptive-icon foreground (glyph scaled into the safe zone; background #28A745). -->
+  <g transform="translate(512,512) scale(0.80602) translate(-532.00,-512.00)">
+  <g stroke-width="34.937" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 644 260 H 336 A 36 36 0 0 0 300 296 V 728 A 36 36 0 0 0 336 764 H 728 A 36 36 0 0 0 764 728 V 380 H 644 Z" fill="none" stroke="#FFFFFF"/>
+    <line x1="380" y1="520" x2="684" y2="520" fill="none" stroke="#FFFFFF"/>
+    <line x1="380" y1="630" x2="590" y2="630" fill="none" stroke="#FFFFFF"/>
+  </g>
   </g>
 </svg>

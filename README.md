@@ -2,7 +2,7 @@
 
 > Paperless-ngx document search.
 
-`iOS` `Android` · Apache-2.0 · Part of the [Établi Suite](https://github.com/etabli-dev)
+`iOS` `Android` · AGPL-3.0-only · Part of the [Établi Suite](https://github.com/etabli-dev)
 
 Android and iOS search document metadata and combine tags, correspondent and document-type filters. Both display titles, dates, original filenames and tag names; iOS additionally opens downloaded originals in Quick Look. Upload, deletion and document editing are not implemented. The screens show the first result page (50 documents, newest added first, on both platforms); use search to narrow it. UI pagination remains deferred.
 
@@ -99,5 +99,8 @@ resolve device findings, configure signing and prepare the store package for app
 
 ## License
 
-Apache License 2.0 — see [LICENSE](LICENSE) and [NOTICE](NOTICE).
+GNU Affero General Public License v3.0 only (AGPL-3.0-only) — see [LICENSE](LICENSE) and
+[NOTICE](NOTICE). Commercial licences are available from the copyright holder
+(etabli.dev@outlook.com). Third-party components keep their own licences. Versions published
+before 22 November 2026 remain available under Apache-2.0.
 Copyright 2026 R. Heller.

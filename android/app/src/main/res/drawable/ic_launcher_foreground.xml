@@ -1,40 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Établi Doc: adaptive-icon foreground, generated from the shared icon glyph
+     (glyph ≈70% of the visible icon, stroke 44 @1024; aligned to the Établi suite icon, Nov 2026). -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- Document sheet with folded corner — matches design/icon-doc.svg
-         (scaled from 1024-canvas to 108dp). -->
-    <path
-        android:pathData="M31.6,27.4 L67.9,27.4 L80.5,40.1 L80.5,80.6 L31.6,80.6 Z"
-        android:strokeColor="#FFFFFF"
-        android:strokeWidth="3.8"
-        android:fillColor="#00000000"
-        android:strokeLineCap="round"
-        android:strokeLineJoin="round"/>
-    <path
-        android:pathData="M67.9,27.4 L67.9,40.1 L80.5,40.1"
-        android:strokeColor="#FFFFFF"
-        android:strokeWidth="3.8"
-        android:fillColor="#00000000"
-        android:strokeLineCap="round"
-        android:strokeLineJoin="round"/>
-    <path
-        android:pathData="M40,52.7 L72,52.7"
-        android:strokeColor="#FFFFFF"
-        android:strokeWidth="3.8"
-        android:fillColor="#00000000"
-        android:strokeLineCap="round"/>
-    <path
-        android:pathData="M40,61.1 L72,61.1"
-        android:strokeColor="#FFFFFF"
-        android:strokeWidth="3.8"
-        android:fillColor="#00000000"
-        android:strokeLineCap="round"/>
-    <path
-        android:pathData="M40,69.6 L63.3,69.6"
-        android:strokeColor="#FFFFFF"
-        android:strokeWidth="3.8"
-        android:fillColor="#00000000"
-        android:strokeLineCap="round"/>
+    <group android:scaleX="0.085010" android:scaleY="0.085010"
+        android:translateX="8.7747" android:translateY="10.4749">
+        <path android:pathData="M 644 260 H 336 A 36 36 0 0 0 300 296 V 728 A 36 36 0 0 0 336 764 H 728 A 36 36 0 0 0 764 728 V 380 H 644 Z"
+            android:strokeColor="#FFFFFF" android:strokeWidth="34.937" android:strokeLineCap="round" android:strokeLineJoin="round"/>
+        <path android:pathData="M380,520 L684,520"
+            android:strokeColor="#FFFFFF" android:strokeWidth="34.937" android:strokeLineCap="round" android:strokeLineJoin="round"/>
+        <path android:pathData="M380,630 L590,630"
+            android:strokeColor="#FFFFFF" android:strokeWidth="34.937" android:strokeLineCap="round" android:strokeLineJoin="round"/>
+    </group>
 </vector>

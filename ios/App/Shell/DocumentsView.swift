@@ -6,6 +6,7 @@ import QuickLook
 
 struct DocumentsView: View {
     @Environment(PBClient.self) private var client
+    @Environment(\.themeAccent) private var accent
 
     @State private var documents: [PBDocument] = []
     @State private var tags: [PBNamed] = []
@@ -58,7 +59,7 @@ struct DocumentsView: View {
                     if let metadataWarning { StatusLabel(metadataWarning, tone: .warn) }
                     if let error, !documents.isEmpty { StatusLabel(error, tone: .danger) }
                     body_
-                }.padding(Theme.Space.lg)
+                }.padding(Theme.Space.lg).readableColumn()
             }
             .refreshable { await load() }
         }
@@ -80,12 +81,12 @@ struct DocumentsView: View {
                     ForEach(documents) { d in
                         Button { Task { await open(d) } } label: {
                             ListRow(
-                                title: d.title ?? "(untitled)",
+                                title: d.title ?? String(localized: "(untitled)"),
                                 metadata: subtitle(d),
-                                leading: { Image(systemName: "doc.text").foregroundStyle(Theme.Color.accent) },
+                                leading: { Image(systemName: "doc.text").foregroundStyle(accent) },
                                 trailing: {
                                     if downloadingID == d.id {
-                                        ProgressView().tint(Theme.Color.accent)
+                                        ProgressView()
                                     } else {
                                         Image(systemName: "chevron.right")
                                             .font(Theme.Font.mono).foregroundStyle(Theme.Color.faint)
@@ -105,6 +106,7 @@ struct DocumentsView: View {
     private var searchBar: some View {
         HStack(spacing: Theme.Space.sm) {
             Image(systemName: "magnifyingglass").foregroundStyle(Theme.Color.faint)
+                .accessibilityHidden(true)
             TextField("full-text search", text: $query)
                 .textFieldStyle(.plain)
                 .font(Theme.Font.monoBody).foregroundStyle(Theme.Color.ink)
@@ -113,6 +115,7 @@ struct DocumentsView: View {
                 Button { query = "" } label: {
                     Image(systemName: "xmark.circle.fill").foregroundStyle(Theme.Color.faint)
                 }.buttonStyle(.plain)
+                .accessibilityLabel("Clear search")
             }
         }
         .padding(Theme.Space.sm)
@@ -148,7 +151,7 @@ struct DocumentsView: View {
                 Button {
                     selectedTagID = nil; selectedCorrespondentID = nil; selectedDocTypeID = nil
                     query = ""
-                } label: { MonoLabel("clear", color: Theme.Color.accent) }
+                } label: { MonoLabel("clear", color: accent) }
                     .buttonStyle(.plain)
             }
             Spacer()
@@ -156,29 +159,29 @@ struct DocumentsView: View {
     }
 
     @ViewBuilder
-    private func menuChip<C: View>(label: String, active: Bool, @ViewBuilder content: () -> C) -> some View {
+    private func menuChip<C: View>(label: LocalizedStringKey, active: Bool, @ViewBuilder content: () -> C) -> some View {
         Menu(content: content) {
             HStack(spacing: 4) {
-                MonoLabel(label, color: active ? Theme.Color.surface : Theme.Color.ink)
+                MonoLabel(label, color: active ? Theme.Color.onAccent : Theme.Color.ink)
                 Image(systemName: "chevron.down").font(.caption2)
-                    .foregroundStyle(active ? Theme.Color.surface : Theme.Color.faint)
+                    .foregroundStyle(active ? Theme.Color.onAccent : Theme.Color.faint)
             }
             .padding(.horizontal, Theme.Space.sm).padding(.vertical, Theme.Space.xs)
-            .background(active ? Theme.Color.accent : Theme.Color.paper)
+            .background(active ? accent : Theme.Color.paper)
             .overlay(RoundedRectangle(cornerRadius: Theme.Radius.sm)
                 .strokeBorder(Theme.Color.hairline, lineWidth: 1))
         }
     }
 
-    private var tagLabel: String {
+    private var tagLabel: LocalizedStringKey {
         if let id = selectedTagID, let t = tags.first(where: { $0.id == id }) { return "tag: \(t.name ?? "—")" }
         return "any tag"
     }
-    private var correspondentLabel: String {
+    private var correspondentLabel: LocalizedStringKey {
         if let id = selectedCorrespondentID, let c = correspondents.first(where: { $0.id == id }) { return "from: \(c.name ?? "—")" }
         return "any sender"
     }
-    private var docTypeLabel: String {
+    private var docTypeLabel: LocalizedStringKey {
         if let id = selectedDocTypeID, let dt = docTypes.first(where: { $0.id == id }) { return "type: \(dt.name ?? "—")" }
         return "any type"
     }
@@ -189,10 +192,10 @@ struct DocumentsView: View {
     private func subtitle(_ d: PBDocument) -> String {
         var parts: [String] = []
         if let added = d.added {
-            parts.append("added " + added.prefix(10))
+            parts.append(String(localized: "added \(String(added.prefix(10)))"))
         }
         if let cid = d.correspondent, let name = correspondents.first(where: { $0.id == cid })?.name {
-            parts.append("from \(name)")
+            parts.append(String(localized: "from \(name)"))
         }
         if let filename = d.original_file_name, !filename.isEmpty {
             parts.append(filename)
@@ -222,7 +225,7 @@ struct DocumentsView: View {
             guard client.config == account else { return }
             tags = labels.0; correspondents = labels.1; docTypes = labels.2
         } catch is CancellationError { return }
-        catch { metadataWarning = "Filter names unavailable: \(error.localizedDescription)" }
+        catch { metadataWarning = String(localized: "Filter names unavailable: \(error.localizedDescription)") }
         guard !Task.isCancelled && client.config == account else { return }
         await load()
     }

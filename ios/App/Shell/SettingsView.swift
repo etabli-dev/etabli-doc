@@ -5,9 +5,6 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(PBClient.self) private var client
-    @AppStorage(ThemePreference.userDefaultsKey) private var themeRaw: String = ThemePreference.system.rawValue
-    private var theme: ThemePreference { ThemePreference(rawValue: themeRaw) ?? .system }
-
     @State private var urlText = ""
     @State private var username = ""
     @State private var password = ""
@@ -27,21 +24,13 @@ struct SettingsView: View {
                     } else {
                         connectCard
                     }
-                    Card(title: "appearance", systemImage: "paintbrush") {
-                        Picker("Theme", selection: Binding(
-                            get: { theme }, set: { themeRaw = $0.rawValue }
-                        )) {
-                            ForEach(ThemePreference.allCases) { p in
-                                Label(p.label, systemImage: p.systemImage).tag(p)
-                            }
-                        }.pickerStyle(.segmented)
-                    }
+                    AppearanceCard()
                     Card(title: "about", systemImage: "info.circle") {
                         Text("EtabliDoc").font(Theme.Font.headline).foregroundStyle(Theme.Color.ink)
                         Text("Paperless-ngx companion — search, filter, view PDFs from your document archive. No analytics; no tracking.")
                             .font(Theme.Font.body).foregroundStyle(Theme.Color.faint)
                     }
-                }.padding(Theme.Space.lg)
+                }.padding(Theme.Space.lg).readableColumn()
             }
         }
         .toolbar(.hidden, for: .navigationBar)
@@ -70,12 +59,16 @@ struct SettingsView: View {
         Card(title: "connected", systemImage: "checkmark.circle") {
             VStack(alignment: .leading, spacing: Theme.Space.md) {
                 MonoLabel(cfg.baseURL.absoluteString)
+                if let error {
+                    Text(error).font(Theme.Font.body).foregroundStyle(Theme.Color.danger)
+                }
                 Button(role: .destructive) {
-                    try? client.disconnect()
+                    do { try client.disconnect(); error = nil }
+                    catch { self.error = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription }
                 } label: {
                     Text("Disconnect").font(Theme.Font.body.weight(.semibold))
                         .padding(.horizontal, Theme.Space.md).padding(.vertical, Theme.Space.sm)
-                        .foregroundStyle(Theme.Color.surface)
+                        .foregroundStyle(Theme.Color.onAccent)
                         .background(Theme.Color.danger)
                         .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.sm))
                 }.buttonStyle(.plain)
@@ -84,7 +77,8 @@ struct SettingsView: View {
     }
 
     @ViewBuilder
-    private func field(_ label: String, text: Binding<String>, placeholder: String, secure: Bool = false) -> some View {
+    private func field(_ label: LocalizedStringKey, text: Binding<String>, placeholder: LocalizedStringKey,
+                       secure: Bool = false) -> some View {
         VStack(alignment: .leading, spacing: Theme.Space.xs) {
             MonoLabel(label, color: Theme.Color.faint)
             Group {
@@ -102,12 +96,13 @@ struct SettingsView: View {
 
     private func connect() {
         guard let url = URL(string: urlText.trimmingCharacters(in: .whitespaces)) else {
-            error = "Invalid URL"; return
+            error = String(localized: "Invalid URL"); return
         }
         connecting = true; error = nil
         Task {
             do {
                 try await client.connect(baseURL: url, username: username, password: password)
+                password = ""
             } catch {
                 self.error = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
             }

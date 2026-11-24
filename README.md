@@ -6,6 +6,8 @@
 
 Android and iOS search document metadata and combine tags, correspondent and document-type filters. Both display titles, dates, original filenames and tag names; iOS additionally opens downloaded originals in Quick Look. Upload, deletion and document editing are not implemented. The screens show the first result page (50 documents, newest added first, on both platforms); use search to narrow it. UI pagination remains deferred.
 
+Appearance (iOS, Settings → Appearance): app language (System/Deutsch/English; the iOS app is fully translated into German), System/Light/Dark and accent colour; default Hugo Coder palette.
+
 ## Availability
 
 Établi Doc is **under active development**. There are no App Store, Google Play or F-Droid releases yet.
@@ -59,7 +61,8 @@ python3 scripts/check_swift.py
 ```
 
 These checks compile the production client/transport/Keychain wrapper, exercise
-the client using isolated in-memory credentials and HTTP protocol fixtures, and
+the client using isolated in-memory credentials and HTTP protocol fixtures,
+check the appearance model (stored-value fallback, colour table, contrast) and
 parse the SwiftUI sources. They do not establish a complete iOS build or a real
 server connection. Android TLS fixtures use normal trust validation with a local
 test certificate. See [the refinement record](docs/refinement-2026-10.md).

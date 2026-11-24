@@ -24,11 +24,11 @@ public enum PBError: Error, LocalizedError {
     case invalidCredentials
     public var errorDescription: String? {
         switch self {
-        case .notConfigured: "Configure base URL + credentials in Settings."
-        case .http(let s, _): "Server returned HTTP \(s)."
-        case .decoding(let m): "Couldn't decode response: \(m)."
-        case .transport(let m): "Network error: \(m)."
-        case .invalidCredentials: "Username or password was rejected."
+        case .notConfigured: String(localized: "Configure base URL + credentials in Settings.")
+        case .http(let s, _): String(localized: "Server returned HTTP \(s).")
+        case .decoding(let m): String(localized: "Couldn't decode response: \(sentence(m))")
+        case .transport(let m): String(localized: "Network error: \(sentence(m))")
+        case .invalidCredentials: String(localized: "Username or password was rejected.")
         }
     }
 }
@@ -111,7 +111,7 @@ public final class PBClient {
         req.httpBody = try JSONSerialization.data(withJSONObject: body)
         let (data, response) = try await session.data(for: req)
         guard let http = response as? HTTPURLResponse else {
-            throw PBError.transport("No HTTP response")
+            throw PBError.transport(String(localized: "No HTTP response"))
         }
         if http.statusCode == 400 || http.statusCode == 401 {
             throw PBError.invalidCredentials
@@ -229,7 +229,7 @@ public final class PBClient {
         var comps = URLComponents(url: cfg.baseURL.appendingPathComponent(path),
                                   resolvingAgainstBaseURL: false)
         if !queryItems.isEmpty { comps?.queryItems = queryItems }
-        guard let url = comps?.url else { throw PBError.transport("Couldn't build URL") }
+        guard let url = comps?.url else { throw PBError.transport(String(localized: "Couldn't build URL")) }
         var req = URLRequest(url: url)
         req.setValue("Token \(try token())", forHTTPHeaderField: "Authorization")
         req.setValue("application/json", forHTTPHeaderField: "Accept")
@@ -244,4 +244,9 @@ public final class PBClient {
         catch let e as PBError { throw e }
         catch { throw PBError.transport(error.localizedDescription) }
     }
+}
+
+/// A system message as one sentence: adds a final period only when the message has none.
+private func sentence(_ message: String) -> String {
+    message.hasSuffix(".") ? message : message + "."
 }
